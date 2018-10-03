@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Session;
 use App\Http\Requests\PostCreateRequest;
 use App\Post;
 use App\Photo;
-use App\catagory;
+use App\category;
+
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,8 +36,8 @@ class AdminPostsController extends Controller
     {
         //
         //$catagory = catagory::lists('name','id');
-        $catagory = ['Opstion select','PHP','JAVA','C++','JS','PAYTON'];
-        return view('admin.posts.create',compact('catagory'));
+        $category = category::lists('name','id')->all();
+        return view('admin.posts.create',compact('category'));
     }
 
     /**
