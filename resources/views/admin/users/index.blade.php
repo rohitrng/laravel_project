@@ -2,6 +2,16 @@
 
 @section('content')
 
+    @if(Session::has('delete_user'))
+        <p class="alert alert-danger">{{session('delete_user')}}</p>
+    @endif
+
+    @if(Session::has('update_user'))
+        <p class="alert alert-success">{{session('update_user')}}</p>
+    @endif
+    @if(Session::has('create_user'))
+        <p class="alert alert-success">{{session('create_user')}}</p>
+    @endif
     <h1>Users</h1>
 
         <table class="table table-hover">

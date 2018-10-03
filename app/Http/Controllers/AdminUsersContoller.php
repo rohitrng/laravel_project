@@ -7,7 +7,10 @@ use App\Role;
 use App\Photo;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UserEdit;
+use Session;
+
 use Illuminate\Http\Request;
+//use Illuminate\
 
 use App\Http\Requests;
 
@@ -23,7 +26,7 @@ class AdminUsersContoller extends Controller
         //
         $users = User::all();
         return view('admin.users.index',compact('users'));
-//        echo 'Hello';
+        //echo 'Hello';
     }
 
     /**
@@ -62,9 +65,10 @@ class AdminUsersContoller extends Controller
         }
         $input['password'] = bcrypt($request->password);
         User::create($input);
+        Session::flash('create_user','User Profile has been created');
         return redirect('/admin/users');
 
-//        return $request->all();
+        //return $request->all();
     }
 
     /**
@@ -123,6 +127,7 @@ class AdminUsersContoller extends Controller
         }
 
         $user->update($input);
+        Session::flash('update_user','User Profile Updated');
         return redirect('/admin/users');
 
     }
@@ -136,5 +141,10 @@ class AdminUsersContoller extends Controller
     public function destroy($id)
     {
         //
+        User::findOrFail($id)->delete();
+        unlink(public_path().$user->photo->file);
+        $user->delete();
+        Session::flash('delete_user','The user has been deleted');
+        return redirect('/admin/users');
     }
 }
