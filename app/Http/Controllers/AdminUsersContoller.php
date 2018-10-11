@@ -127,6 +127,7 @@ class AdminUsersContoller extends Controller
         }
 
         $user->update($input);
+
         Session::flash('update_user','User Profile Updated');
         return redirect('/admin/users');
 
